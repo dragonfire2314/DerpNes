@@ -1,0 +1,6 @@
+﻿  main.cpp
+f:\programming\c++\projects\real_derpnes\classlessderpnes\classlessderpnes\src\mos6502.h(14): warning C4005: 'OVERFLOW': macro redefinition
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.16299.0\ucrt\corecrt_math.h(966): note: see previous definition of 'OVERFLOW'
+f:\programming\c++\projects\real_derpnes\classlessderpnes\classlessderpnes\src\mos6502.h(71): warning C4091: 'typedef ': ignored on left of 'mos6502::Instr' when no variable is declared
+  LINK : /LTCG specified but no code generation required; remove /LTCG from the link command line to improve linker performance
+  ClasslessDerpNES.vcxproj -> F:\Programming\C++\Projects\Real_DerpNES\ClasslessDerpNES\Release\ClasslessDerpNES.exe

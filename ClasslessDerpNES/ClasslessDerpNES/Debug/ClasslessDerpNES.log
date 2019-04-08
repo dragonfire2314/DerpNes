@@ -1,0 +1,9 @@
+﻿  ppu.cpp
+f:\programming\c++\real_derpnes\classlessderpnes\classlessderpnes\src\ppu.cpp(505): warning C4101: 'u3': unreferenced local variable
+f:\programming\c++\real_derpnes\classlessderpnes\classlessderpnes\src\ppu.cpp(505): warning C4101: 'u2': unreferenced local variable
+  main.cpp
+f:\programming\c++\real_derpnes\classlessderpnes\classlessderpnes\src\mos6502.h(14): warning C4005: 'OVERFLOW': macro redefinition
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\corecrt_math.h(966): note: see previous definition of 'OVERFLOW'
+f:\programming\c++\real_derpnes\classlessderpnes\classlessderpnes\src\mos6502.h(71): warning C4091: 'typedef ': ignored on left of 'mos6502::Instr' when no variable is declared
+  Generating Code...
+  ClasslessDerpNES.vcxproj -> F:\Programming\C++\Real_DerpNES\ClasslessDerpNES\Debug\ClasslessDerpNES.exe
