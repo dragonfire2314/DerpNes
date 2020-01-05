@@ -733,6 +733,9 @@ void mos6502::Run(uint32_t n)
 		// fetch
 		opcode = Read(pc++);
 
+		//cout << hex << "PC: " << (int)pc << " OP: " << (int)opcode << endl;
+		//system("pause");
+
 		// decode
 		instr = InstrTable[opcode];
 		
@@ -754,7 +757,8 @@ void mos6502::Exec(Instr i)
 
 void mos6502::Op_ILLEGAL(uint16_t src)
 {
-	std::cout << "Invalid Opcode: " << std::hex << (int)src << std::endl;
+	std::cout << "PC: " << (int)pc << " Invalid Opcode: " << std::hex << (int)src << " Opcode?: " << (int)Read((--pc)) 
+		<< " cycle: " << (int)cycles << std::endl;
 	system("PAUSE");
 	illegalOpcode = true;
 }

@@ -1,5 +1,6 @@
 #include <SDL.h>
 #include <thread>
+#include <chrono>
 
 #include "mos6502.h"
 #include "mmu.h"
@@ -7,7 +8,7 @@
 #include "main.h"
 #include "debug.h"
 #include "controller.h"
-#include "menu.h"
+#include "apu.h"
 
 //functions
 void check_SDLevents();
@@ -17,13 +18,16 @@ SDL_Event e;
 bool running = true;
 bool callNMI = false;
 
+mos6502 *mos;
+
 int main(int argc, char *argv[])
 {
-	std::thread t(menu::guiRun);
+	
+	loadRom("mega2.nes");
 
-	loadRom("marioW.nes");
+	mos = new mos6502(m_read, m_write);
 
-	mos6502 mos(m_read, m_write);
+	apu::audioSetUp();
 
 	//SDL
 	SDL_Init(SDL_INIT_EVERYTHING);
@@ -31,18 +35,17 @@ int main(int argc, char *argv[])
 	SDL_Renderer *renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
 	SDL_Texture *texture = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_ABGR8888, SDL_TEXTUREACCESS_STREAMING, 256, 240);
 
-	Debug_createMemBanksView();
+	//Debug_createMemBanksView();
 
-	SDL_Rect rect;
-	rect.h = 240;
-	rect.w = 256;
+	double arr[60];
+	int arrCounter = 0;
 
 	//Main loop
 	while (running)
 	{
 		const Uint64 start = SDL_GetPerformanceCounter();
 
-		Debug_Update();
+		//Debug_Update();
 
 		//cls
 		SDL_SetRenderDrawColor(renderer, 0, 0, 0, SDL_ALPHA_OPAQUE);
@@ -54,17 +57,19 @@ int main(int argc, char *argv[])
 		//Run cpu for 241 scanlines (241*341)
 		for (int i = 0; i < 82181; i++)
 		{
-			mos.Run(1);
+			mos->Run(1);
 			checkFlags();
+			apu::tick();
 		}
 		//set v blank on ppu
 		startVblank();
-		if (callNMI) { mos.NMI(); callNMI = false; }
+		if (callNMI) { mos->NMI(); callNMI = false; }
 		//Run cpu for 19 scanlines (19*341)
 		for (int i = 0; i < 6479; i++)
 		{
-			mos.Run(1);
+			mos->Run(1);
 			checkFlags();
+			apu::tick();
 		}
 		//End Vblank
 		endVblank();
@@ -80,7 +85,27 @@ int main(int argc, char *argv[])
 		const Uint64 end = SDL_GetPerformanceCounter();
 		const static Uint64 freq = SDL_GetPerformanceFrequency();
 		const double seconds = (end - start) / static_cast< double >(freq);
-		//cout << "Frame time: " << seconds * 1000.0 << "ms" << endl;
+		double mSeconds = seconds * 1000.0;
+		std::this_thread::sleep_for(std::chrono::milliseconds((long)(16.66666 - mSeconds)));
+		const Uint64 end2 = SDL_GetPerformanceCounter();
+		const static Uint64 freq2 = SDL_GetPerformanceFrequency();
+		const double seconds2 = (end2 - start) / static_cast<double>(freq2);
+		//cout << "Frame time: " << seconds2 * 1000.0 << "ms" << endl;
+		arr[arrCounter] = seconds2;
+		arrCounter++;
+		if (arrCounter > 59)
+		{
+			double gym = 0;
+			for (int i = 0; i < 60; i++)
+			{
+				gym = gym + arr[i];
+			}
+			gym = gym / 60.0;
+
+			cout << "Frame time: " << seconds2 * 1000.0 << "ms" << endl;
+			arrCounter = 0;
+		}
+
 	}
 	//Clean up
 	SDL_DestroyRenderer(renderer);
@@ -167,4 +192,9 @@ void check_SDLevents()
 void nmi() 
 {
 	callNMI = true;
+}
+
+void irq() 
+{
+	mos->IRQ();
 }

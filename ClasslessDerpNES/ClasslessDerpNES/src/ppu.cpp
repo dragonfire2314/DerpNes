@@ -3,6 +3,10 @@
 #include "main.h"
 #include <iostream>
 
+#define PAUSE system("pause")
+
+using namespace std;
+
 //texture Size
 const int texWidth = 512;
 const int texHeight = 240;
@@ -219,6 +223,7 @@ uint8_t spritePatternTable;
 uint8_t backgroundPatternTable;
 uint8_t spriteSzie;
 uint8_t generateNMI;
+uint8_t PPUDATA_Incrament;
 
 uint8_t vBlank = 0;
 
@@ -292,6 +297,7 @@ void checkFlags()
 		spritePatternTable = (hold >> 3) & 0x1;
 		backgroundPatternTable = (hold >> 4) & 0x1;
 		generateNMI = ((hold >> 7) & 0x1);
+		PPUDATA_Incrament = ((hold >> 2) & 0x1);
 	}
 	//0x2001
 	if (regFlags[1])
@@ -355,14 +361,16 @@ void checkFlags()
 	//0x2007
 	if (regFlags[7])
 	{
-		if (getVmirror() == 1) { }
-		else { 
-			//g_write(((ppuaddr_high << 8) + (ppuaddr_low)) + dataOffset, m_read(0x2007));
+		if (PPUDATA_Incrament == 1) 
+		{
 			g_write(((ppuaddr_high << 8) + (ppuaddr_low)) + dataOffset, m_read(0x2007));
+			dataOffset+=32;
 		}
-
-		//g_write(((ppuaddr_high << 8) + (ppuaddr_low)) + dataOffset, m_read(0x2007));
-		dataOffset++;
+		else
+		{
+			g_write(((ppuaddr_high << 8) + (ppuaddr_low)) + dataOffset, m_read(0x2007));
+			dataOffset++;
+		}
 	}
 	//0x4014
 	if (regFlags[8])

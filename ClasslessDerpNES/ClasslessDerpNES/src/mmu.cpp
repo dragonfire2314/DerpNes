@@ -1,6 +1,7 @@
 #include "mmu.h"
 #include "ppu.h"
 #include "controller.h"
+#include "apu.h"
 #include <string>
 #include <fstream>
 #include <iostream>
@@ -33,6 +34,8 @@ void m_write(uint16_t loc, uint8_t data)
 	default:
 		break;
 	}
+
+	if (loc >= 0x4000 && loc <= 0x4017) { apu::UpdateReg(loc, data); }
 
 	if (loc >= 0x800 && loc < 0x2000) { cout << hex << "Write At: " << (int)loc << endl; system("PAUSE"); }
 	if (loc >= 0x2008 && loc < 0x4000) { cout << hex << "Write At: " << (int)loc << endl; system("PAUSE"); }
@@ -123,7 +126,7 @@ void loadRom(std::string file)
 		romInfo[i] = infile.get();
 	}
 
-	switch ((romInfo[6] >> 4) == 1) 
+	switch ((romInfo[6] >> 4)) 
 	{
 	case 0:
 		mapper = new MM0();
@@ -131,7 +134,12 @@ void loadRom(std::string file)
 	case 1:
 		mapper = new MM1();
 		break;
+	case 2:
+		mapper = new MM2();
+		break;
 	}
+
+	
 
 	mapper->setUp(&infile);
 

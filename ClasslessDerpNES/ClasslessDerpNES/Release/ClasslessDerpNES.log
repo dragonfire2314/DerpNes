@@ -1,6 +1,23 @@
-﻿  main.cpp
-f:\programming\c++\projects\real_derpnes\classlessderpnes\classlessderpnes\src\mos6502.h(14): warning C4005: 'OVERFLOW': macro redefinition
-  C:\Program Files (x86)\Windows Kits\10\Include\10.0.16299.0\ucrt\corecrt_math.h(966): note: see previous definition of 'OVERFLOW'
-f:\programming\c++\projects\real_derpnes\classlessderpnes\classlessderpnes\src\mos6502.h(71): warning C4091: 'typedef ': ignored on left of 'mos6502::Instr' when no variable is declared
+﻿  apu.cpp
+  controller.cpp
+  debug.cpp
+  main.cpp
+c:\users\tanner\desktop\real_derpnes\classlessderpnes\classlessderpnes\src\mos6502.h(14): warning C4005: 'OVERFLOW': macro redefinition
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\corecrt_math.h(966): note: see previous definition of 'OVERFLOW'
+c:\users\tanner\desktop\real_derpnes\classlessderpnes\classlessderpnes\src\mos6502.h(71): warning C4091: 'typedef ': ignored on left of 'mos6502::Instr' when no variable is declared
+  mappers.cpp
+  mmu.cpp
+  mos6502.cpp
+c:\users\tanner\desktop\real_derpnes\classlessderpnes\classlessderpnes\src\mos6502.h(14): warning C4005: 'OVERFLOW': macro redefinition
+  c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\corecrt_math.h(966): note: see previous definition of 'OVERFLOW'
+c:\users\tanner\desktop\real_derpnes\classlessderpnes\classlessderpnes\src\mos6502.h(71): warning C4091: 'typedef ': ignored on left of 'mos6502::Instr' when no variable is declared
+c:\users\tanner\desktop\real_derpnes\classlessderpnes\classlessderpnes\src\mos6502.cpp(1150): warning C4244: 'argument': conversion from 'uint16_t' to 'uint8_t', possible loss of data
+c:\users\tanner\desktop\real_derpnes\classlessderpnes\classlessderpnes\src\mos6502.cpp(1163): warning C4244: '=': conversion from 'uint16_t' to 'uint8_t', possible loss of data
+c:\users\tanner\desktop\real_derpnes\classlessderpnes\classlessderpnes\src\mos6502.cpp(1176): warning C4244: 'argument': conversion from 'uint16_t' to 'uint8_t', possible loss of data
+c:\users\tanner\desktop\real_derpnes\classlessderpnes\classlessderpnes\src\mos6502.cpp(1189): warning C4244: '=': conversion from 'uint16_t' to 'uint8_t', possible loss of data
+  ppu.cpp
+c:\users\tanner\desktop\real_derpnes\classlessderpnes\classlessderpnes\src\ppu.cpp(523): warning C4101: 'u3': unreferenced local variable
+c:\users\tanner\desktop\real_derpnes\classlessderpnes\classlessderpnes\src\ppu.cpp(523): warning C4101: 'u2': unreferenced local variable
+  Generating Code...
   LINK : /LTCG specified but no code generation required; remove /LTCG from the link command line to improve linker performance
-  ClasslessDerpNES.vcxproj -> F:\Programming\C++\Projects\Real_DerpNES\ClasslessDerpNES\Release\ClasslessDerpNES.exe
+  ClasslessDerpNES.vcxproj -> C:\Users\Tanner\Desktop\Real_DerpNES\ClasslessDerpNES\Release\ClasslessDerpNES.exe

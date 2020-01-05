@@ -31,7 +31,7 @@ namespace controller {
 	{
 		inputs[b] = (int)isOn;
 
-		std::cout << (int)inputs[0]
+		/*std::cout << (int)inputs[0]
 			<< (int)inputs[1]
 			<< (int)inputs[2]
 			<< (int)inputs[3]
@@ -39,7 +39,7 @@ namespace controller {
 			<< (int)inputs[5]
 			<< (int)inputs[6]
 			<< (int)inputs[7]
-			<< std::endl;
+			<< std::endl;*/
 	}
 
 }
